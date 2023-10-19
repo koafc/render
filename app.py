@@ -21,14 +21,12 @@ def test_api_key():
 
   try:
     # Run the prediction.
-    prediction = replicate.run("stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478", input={"prompt": "a 19th century portrait of a wombat gentleman"})
+    prediction_dict = replicate.run("stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478", input={"prompt": "a 19th century portrait of a wombat gentleman"})
 
-    # Populate the Prediction object with the required information.
-    prediction.id = "prediction-id"
-    prediction.started_at = datetime.datetime.now()
-    prediction.completed_at = datetime.datetime.now()
+    # Serialize the dictionary to a Prediction object.
+    prediction = Prediction.parse_obj(prediction_dict)
 
-    # Serialize the Prediction object to a JSON object and pass it to the jsonify() function.
+    # Return the Prediction object as a JSON object.
     return jsonify(prediction.dict())
   except Exception as e:
     print(e)
