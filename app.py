@@ -20,11 +20,13 @@ def test_api_key():
   """
 
   try:
-    # Create a Prediction object.
-    prediction = Prediction(id="prediction-id", started_at=datetime.datetime.now(), completed_at=datetime.datetime.now())
+    # Run the prediction.
+    prediction = replicate.run("stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478", input={"prompt": "a 19th century portrait of a wombat gentleman"})
 
-    # Run the prediction without the output keyword argument.
-    replicate.run("stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478", input={"prompt": "a 19th century portrait of a wombat gentleman"})
+    # Populate the Prediction object with the required information.
+    prediction.id = "prediction-id"
+    prediction.started_at = datetime.datetime.now()
+    prediction.completed_at = datetime.datetime.now()
 
     return jsonify({"message": "Replicate.com API key is valid."})
   except Exception as e:
