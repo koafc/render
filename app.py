@@ -12,8 +12,8 @@ def index():
     if request.method == "POST":
         q = request.form.get("q")
         body = json.dumps({"version": "db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf", "input": { "prompt": q } })
-        headers = {'Authorization': 'Token r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J','Content-Type': 'application/json'}
-        output = requests.post('https://api.replicate.com/v1/predictions',data=body,headers=headers)
+        headers = {"Authorization": "Token r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J","Content-Type": "application/json"}
+        output = requests.post("https://api.replicate.com/v1/predictions",data=body,headers=headers)
         time.sleep(10)
         print(output.status_code)
         # Print the content of the response
