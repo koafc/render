@@ -10,7 +10,7 @@ import replicate
 # Set up the API endpoint and headers
 url = "https://api.replicate.ai/v1/models/laion-ai/ongo/predict"
 headers = {
-    "Authorization": "r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J",
+    "Authorization": "Bearer r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J",
     "Content-Type": "application/json",
 }
 
