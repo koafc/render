@@ -14,6 +14,9 @@ def index():
         headers = {'Authorization': 'Token r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J','Content-Type': 'application/json'}
         output = requests.post('https://api.replicate.com/v1/predictions',data=body,headers=headers)
         time.sleep(10)
+        print(output.status_code)
+        # Print the content of the response
+        print(output.content)
         get_url = output.json()['urls']['get']
         print(output.json())
         print(get_url)
