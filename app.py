@@ -28,7 +28,8 @@ def test_api_key():
     prediction.started_at = datetime.datetime.now()
     prediction.completed_at = datetime.datetime.now()
 
-    return jsonify({"message": "Replicate.com API key is valid."})
+    # Serialize the Prediction object to a JSON object and pass it to the jsonify() function.
+    return jsonify(prediction.dict())
   except Exception as e:
     print(e)
     return jsonify({"message": "Replicate.com API key is invalid."})
