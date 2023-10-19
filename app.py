@@ -19,10 +19,10 @@ def index():
         # Print the content of the response
         print(output.content)
         print(os.environ.get("REPLICATE_API_TOKEN"))
-        get_url = output.json()['urls']['get']
+        get_url = output.json()["urls"]["get"]
         print(output.json())
         print(get_url)
-        get_result = requests.post(get_url,headers=headers).json()['output']
+        get_result = requests.post(get_url,headers=headers).json()["output"]
         print(get_result)
         return(render_template("index.html", result=get_result[0]))
     else:
