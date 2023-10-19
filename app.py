@@ -1,6 +1,12 @@
-from flask import Flask
-app = Flask(__name__)
+# A very simple Flask Hello World app for you to get started with...
 
-@app.route('/')
-def hello_world():
-    return 'Hello, World!'
+# from flask import Flask, render_template
+
+# app = Flask(__name__)
+
+# @app.route('/')
+# def index():
+#    return render_template('index.html')
+
+# if __name__ == '__main__':
+#    app.run(debug=True)
