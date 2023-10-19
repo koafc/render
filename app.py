@@ -1,36 +1,32 @@
-import datetime
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
+import os
+import requests
+import json
+import time
 import replicate
-from pydantic import BaseModel
 
-class Prediction(BaseModel):
-    id: str
-    started_at: datetime.datetime
-    completed_at: datetime.datetime
-
+os.environ["REPLICATE_API_TOKEN"] = "r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J"
 app = Flask(__name__)
+@app.route("/", methods=["GET","POST"])
+def index():
+    if request.method == "POST":
+        q = request.form.get("q")
+        body = json.dumps({"version": "db21e45d3f7023abc2a46ee38a23973f6dce16bb082a930b0c49861f96d1e5bf", "input": { "prompt": q } })
+        headers = {"Authorization": "Token r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J","Content-Type": "application/json"}
+        output = requests.post("https://api.replicate.com/v1/predictions",data=body,headers=headers)
+        time.sleep(10)
+        print(output.status_code)
+        # Print the content of the response
+        print(output.content)
+        print(os.environ.get("REPLICATE_API_TOKEN"))
+        get_url = output.json()['urls']['get']
+        print(output.json())
+        print(get_url)
+        get_result = requests.post(get_url,headers=headers).json()['output']
+        print(get_result)
+        return(render_template("index.html", result=get_result[0]))
+    else:
+        return(render_template("index.html", result="waiting"))
 
-@app.route("/")
-def test_api_key():
-  """Tests whether the Replicate.com API key is working properly.
-
-  Returns:
-    A JSON object with the message "Replicate.com API key is valid." or
-    "Replicate.com API key is invalid."
-  """
-
-  try:
-    # Run the prediction.
-    prediction_dict = replicate.run("stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478", input={"prompt": "a 19th century portrait of a wombat gentleman"})
-
-    # Serialize the dictionary to a Prediction object.
-    prediction = Prediction.parse_obj(prediction_dict)
-
-    # Return the Prediction object as a JSON object.
-    return jsonify(prediction.dict())
-  except Exception as e:
-    print(e)
-    return jsonify({"message": "Replicate.com API key is invalid."})
-
-if __name__ == "__main__":
-  app.run(debug=True)
+if __name__ == "__main__" :
+    app.run()
