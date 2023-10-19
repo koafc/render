@@ -1,5 +1,11 @@
 from flask import Flask, render_template, request, jsonify
 import replicate
+from pydantic import BaseModel
+
+class Prediction(BaseModel):
+    id: str
+    started_at: datetime.datetime
+    completed_at: datetime.datetime
 
 app = Flask(__name__)
 
@@ -13,8 +19,12 @@ def test_api_key():
   """
 
   try:
-    # Run a simple model to test the API key.
-    replicate.run("stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478", input={"prompt": "a 19th century portrait of a wombat gentleman"})
+    # Create a Prediction object.
+    prediction = Prediction(id="prediction-id", started_at=datetime.datetime.now(), completed_at=datetime.datetime.now())
+
+    # Run the prediction.
+    replicate.run("stability-ai/stable-diffusion:27b93a2413e7f36cd83da926f3656280b2931564ff050bf9575f1fdf9bcd7478", input={"prompt": "a 19th century portrait of a wombat gentleman"}, output=prediction)
+
     return jsonify({"message": "Replicate.com API key is valid."})
   except Exception as e:
     print(e)
@@ -22,3 +32,4 @@ def test_api_key():
 
 if __name__ == "__main__":
   app.run(debug=True)
+
