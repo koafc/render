@@ -18,6 +18,7 @@ def index():
         print(output.status_code)
         # Print the content of the response
         print(output.content)
+        print(os.environ.get("REPLICATE_API_TOKEN"))
         get_url = output.json()['urls']['get']
         print(output.json())
         print(get_url)
