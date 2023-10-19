@@ -5,7 +5,7 @@ import json
 import time
 import replicate
 
-os.environ["REPLICATE_API_TOKEN"] = "r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J"
+# os.environ["REPLICATE_API_TOKEN"] = "r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J"
 app = Flask(__name__)
 @app.route("/", methods=["GET","POST"])
 def index():
