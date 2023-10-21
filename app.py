@@ -14,7 +14,8 @@ headers = {
 #    "Authorization" : "Token r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J",
     "Content-Type" : "application/json"
 }
-
+print("Testing2")
+print(REPLICATE_API_KEY)
 @app.route("/",methods=["GET","POST"])
 def index():
     if request.method == "POST":
