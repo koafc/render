@@ -10,7 +10,8 @@ print("Testing")
 REPLICATE_API_KEY = os.getenv('REPLICATE_API_KEY')
 print('REPLICATE_API_KEY:', REPLICATE_API_KEY)
 headers = {
-    "Authorization" : "Token REPLICATE_API_KEY",
+#    "Authorization" : "Token REPLICATE_API_KEY",
+    "Authorization" : "Token 787f515cb0624813736c11e7fefec66473394f02",
 #    "Authorization" : "Token r8_8KikJnNAhhr7wVJtLBa0w0L7QvaACoM3ktx1J",
     "Content-Type" : "application/json"
 }
