@@ -10,7 +10,8 @@ print("Testing")
 REPLICATE_API_KEY = os.getenv('REPLICATE_API_KEY')
 print('REPLICATE_API_KEY:', REPLICATE_API_KEY)
 headers = {
-    "Authorization": f"Token {REPLICATE_API_KEY}",
+#    "Authorization": f"Token {REPLICATE_API_KEY}",
+    "Authorization": "Token REPLICATE_API_KEY",
     "Content-Type" : "application/json"
 }
 print("Testing2")
@@ -33,7 +34,9 @@ def index():
         time.sleep(10)
         print(output.status_code)
         # Print the content of the response
+        print("Testing Before output.content")
         print(output.content)
+        print("Testing after output.content")
         get_url = output.json()["urls"]["get"]
         print(output.json())
         print(get_url)
